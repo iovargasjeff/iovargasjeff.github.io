@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jefferson Vargas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #09090b;
+      --surface:   #18181b;
+      --surface-2: #1c1c1f;
+      --border:    #27272a;
+      --border-2:  #3f3f46;
+      --text:      #fafafa;
+      --muted:     #a1a1aa;
+      --muted-2:   #71717a;
+      --radius:    8px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Geist', 'Inter', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── Fade-in on load ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes blink {
+      0%,100%{ opacity: 1; } 50%{ opacity: 0; }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position:  400px 0; }
+    }
+    @keyframes pulse-dot {
+      0%,100%{ box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      50%    { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+    }
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes slide-in-left {
+      from { opacity: 0; transform: translateX(-12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Staggered entrance */
+    .fade-up { opacity: 0; animation: fadeUp 0.5s ease forwards; }
+    .fade-up:nth-child(1)  { animation-delay: 0.05s; }
+    .fade-up:nth-child(2)  { animation-delay: 0.10s; }
+    .fade-up:nth-child(3)  { animation-delay: 0.15s; }
+    .fade-up:nth-child(4)  { animation-delay: 0.20s; }
+    .fade-up:nth-child(5)  { animation-delay: 0.25s; }
+    .fade-up:nth-child(6)  { animation-delay: 0.30s; }
+
+    .section-block { opacity: 0; }
+    .section-block.visible { animation: fadeUp 0.5s ease forwards; }
+
+    /* Cursor blink */
+    .cursor {
+      display: inline-block; width: 2px; height: 1em;
+      background: var(--muted-2); margin-left: 1px;
+      animation: blink 1.1s step-end infinite;
+      vertical-align: text-bottom;
+    }
+
+    /* ── Layout ── */
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 80px 24px 100px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 36px 0;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex; align-items: flex-start; gap: 20px;
+      margin-bottom: 28px;
+    }
+    .avatar {
+      width: 84px; height: 84px; border-radius: 50%;
+      border: 1px solid var(--border-2);
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    .avatar:hover { 
+      border-color: var(--text); 
+      transform: translateY(-2px) scale(1.05); 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0; left: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      will-change: transform, opacity;
+    }
+    .avatar .img-hover {
+      opacity: 0;
+      transform: scale(1.1);
+    }
+    .avatar:hover .img-hover {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .avatar:hover .img-normal {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    .header-text h1 {
+      font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em;
+      color: var(--text); line-height: 1.3; margin-bottom: 3px;
+    }
+    .header-text p { font-size: 0.8125rem; color: var(--muted); line-height: 1.5; }
+
+    .header-meta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .meta-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.75rem; color: var(--muted-2);
+      font-family: 'Geist Mono', monospace;
+    }
+
+    /* ── Badges ── */
+    .badge-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+    .badge {
+      display: inline-flex; align-items: center;
+      font-size: 0.7rem; font-family: 'Geist Mono', monospace;
+      padding: 2px 8px; border-radius: 4px;
+      border: 1px solid var(--border-2);
+      background: var(--surface); color: var(--muted);
+      letter-spacing: 0.02em; user-select: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .badge:hover { border-color: var(--muted); color: var(--text); }
+
+    /* ── Section heading ── */
+    .section-heading {
+      font-size: 0.6875rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--muted-2); margin-bottom: 16px;
+    }
+
+    /* ── Link cards ── */
+    .link-list { display: flex; flex-direction: column; gap: 2px; }
+    .link-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border-radius: var(--radius);
+      text-decoration: none; color: var(--text);
+      border: 1px solid transparent;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+      position: relative; overflow: hidden;
+    }
+    .link-item::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
+      background-size: 400px 100%;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .link-item:hover { background: var(--surface-2); border-color: var(--border); transform: translateX(3px); }
+    .link-item:hover::after { opacity: 1; animation: shimmer 1.2s ease infinite; }
+
+    .link-left { display: flex; align-items: center; gap: 12px; }
+    .link-icon {
+      width: 32px; height: 32px; border-radius: 6px;
+      background: var(--surface); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.2s;
+    }
+    .link-item:hover .link-icon { border-color: var(--border-2); }
+
+    .link-info strong { display: block; font-size: 0.8125rem; font-weight: 500; }
+    .link-info span { font-size: 0.75rem; color: var(--muted); font-family: 'Geist Mono', monospace; }
+    .link-arrow {
+      color: var(--muted-2); font-size: 0.75rem;
+      transition: transform 0.15s, color 0.15s;
+    }
+    .link-item:hover .link-arrow { transform: translate(2px, -2px); color: var(--muted); }
+
+    /* ── Project card (single featured) ── */
+    .project-featured {
+      display: block; text-decoration: none; color: var(--text);
+      padding: 20px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .project-featured::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.015) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .project-featured:hover {
+      border-color: var(--border-2);
+      background: var(--surface-2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+
+    .project-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .project-name { font-size: 0.9rem; font-weight: 600; }
+    .project-dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+      animation: pulse-dot 2s ease infinite;
+    }
+
+    .project-desc {
+      font-size: 0.8rem; color: var(--muted); line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .project-stats {
+      display: flex; gap: 16px; margin-bottom: 14px;
+    }
+    .stat {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.72rem; color: var(--muted-2);
+      font-family: 'Geist Mono', monospace;
+    }
+
+    .project-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+    .tag {
+      font-size: 0.65rem; padding: 2px 7px; border-radius: 3px;
+      font-family: 'Geist Mono', monospace;
+      background: var(--bg); border: 1px solid var(--border);
+      color: var(--muted-2);
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .project-featured:hover .tag { border-color: var(--border-2); }
+
+    /* ── Highlights grid (features) ── */
+    .highlights {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+      margin-top: 14px;
+    }
+    @media(max-width:480px){ .highlights { grid-template-columns: 1fr; } }
+    .highlight-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 10px 12px; border-radius: 6px;
+      background: var(--bg); border: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--muted);
+      transition: border-color 0.15s;
+      animation: slide-in-left 0.4s ease forwards;
+      opacity: 0;
+    }
+    .highlight-item:nth-child(1){ animation-delay:0.1s; }
+    .highlight-item:nth-child(2){ animation-delay:0.15s; }
+    .highlight-item:nth-child(3){ animation-delay:0.2s; }
+    .highlight-item:nth-child(4){ animation-delay:0.25s; }
+    .highlight-item:nth-child(5){ animation-delay:0.3s; }
+    .highlight-item:nth-child(6){ animation-delay:0.35s; }
+    .highlight-item:hover { border-color: var(--border-2); color: var(--text); }
+    .highlight-emoji { flex-shrink: 0; font-size: 0.85rem; }
+
+    /* ── AI agents ── */
+    .agent-list { display: flex; flex-direction: column; gap: 2px; }
+    .agent-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 14px; border-radius: var(--radius);
+      border: 1px solid transparent;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .agent-item:hover { background: var(--surface-2); border-color: var(--border); }
+    .agent-left { display: flex; align-items: center; gap: 10px; }
+    .agent-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .agent-name { font-size: 0.8125rem; font-weight: 500; }
+    .agent-desc { font-size: 0.75rem; color: var(--muted); }
+    .agent-status {
+      font-size: 0.65rem; font-family: 'Geist Mono', monospace;
+      padding: 2px 7px; border-radius: 3px;
+      border: 1px solid var(--border); color: var(--muted-2);
+    }
+
+    /* ── Tech pills ── */
+    .tech-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tech-pill {
+      font-size: 0.7rem; font-family: 'Geist Mono', monospace;
+      padding: 3px 10px; border-radius: 4px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--muted);
+      transition: border-color 0.15s, color 0.15s, transform 0.15s;
+      user-select: none; cursor: default;
+    }
+    .tech-pill:hover { border-color: var(--border-2); color: var(--text); transform: translateY(-1px); }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center; font-size: 0.7rem;
+      color: var(--muted-2); font-family: 'Geist Mono', monospace;
+    }
+    .footer a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+<main class="page">
+
+  <!-- ── HEADER ── -->
+  <div class="header">
+    <div class="avatar">
+      <img src="Perfil.webp" alt="Jefferson Vargas" class="img-normal">
+      <img src="Perfil2.webp" alt="Jefferson Vargas Alternate" class="img-hover">
+    </div>
+    <div class="header-text">
+      <div class="fade-up"><h1>Jefferson Vargas<span class="cursor"></span></h1></div>
+      <div class="fade-up"><p>Systems Engineering Student — building real products</p></div>
+      <div class="header-meta fade-up">
+        <span class="meta-item">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Tacna, Perú
+        </span>
+        <span class="meta-item">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          iovargasjeff@gmail.com
+        </span>
+      </div>
+      <div class="badge-row fade-up">
+        <span class="badge">Full-Stack</span>
+        <span class="badge">Computer Vision</span>
+        <span class="badge">AI Integration</span>
+        <span class="badge">Mobile</span>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ── CONNECT ── -->
+  <div class="section-block">
+    <p class="section-heading">Connect</p>
+    <div class="link-list">
+
+      <a class="link-item fade-up" href="https://github.com/iovargasjeff" target="_blank">
+        <div class="link-left">
+          <div class="link-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#a1a1aa"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.532 1.031 1.532 1.031.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.748-1.025 2.748-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .268.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </div>
+          <div class="link-info">
+            <strong>GitHub</strong>
+            <span>iovargasjeff</span>
+          </div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a class="link-item fade-up" href="https://www.linkedin.com/in/jefferson-vargas-7b796b401/" target="_blank">
+        <div class="link-left">
+          <div class="link-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#a1a1aa"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </div>
+          <div class="link-info">
+            <strong>LinkedIn</strong>
+            <span>jefferson-vargas-7b796b401</span>
+          </div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a class="link-item fade-up" href="https://x.com/iojeffvargas" target="_blank">
+        <div class="link-left">
+          <div class="link-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#a1a1aa"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.736l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </div>
+          <div class="link-info">
+            <strong>X (Twitter)</strong>
+            <span>@iojeffvargas</span>
+          </div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a class="link-item fade-up" href="https://www.instagram.com/_vargasjeff/" target="_blank">
+        <div class="link-left">
+          <div class="link-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#a1a1aa"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </div>
+          <div class="link-info">
+            <strong>Instagram</strong>
+            <span>@_vargasjeff</span>
+          </div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+      <a class="link-item fade-up" href="mailto:iovargasjeff@gmail.com">
+        <div class="link-left">
+          <div class="link-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a1a1aa" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="link-info">
+            <strong>Email</strong>
+            <span>iovargasjeff@gmail.com</span>
+          </div>
+        </div>
+        <span class="link-arrow">↗</span>
+      </a>
+
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ── PROJECT ── -->
+  <div class="section-block">
+    <p class="section-heading">Projects</p>
+    <a class="project-featured" href="https://github.com/iovargasjeff/DinoVision-Py" target="_blank">
+      <div class="project-top">
+        <span class="project-name">🦕 DinoVision-Py</span>
+        <span class="project-dot" style="background:#22c55e;"></span>
+      </div>
+      <p class="project-desc">
+        Controla el juego Chrome Dino usando movimientos reales de tu cuerpo captados por la cámara web.
+        ¡Salta y agáchate de verdad para esquivar obstáculos! Powered by MediaPipe Pose Detection.
+      </p>
+      <div class="project-stats">
+        <span class="stat">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          ~65ms latency
+        </span>
+        <span class="stat">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Windows 10/11
+        </span>
+        <span class="stat">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Python 3.11
+        </span>
+      </div>
+      <div class="project-tags" style="margin-bottom: 14px;">
+        <span class="tag">Python</span>
+        <span class="tag">MediaPipe</span>
+        <span class="tag">OpenCV</span>
+        <span class="tag">Computer Vision</span>
+        <span class="tag">Win32 API</span>
+      </div>
+      <div class="highlights">
+        <div class="highlight-item">
+          <span class="highlight-emoji">🎥</span>
+          <span>Control por cámara web en tiempo real</span>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-emoji">🏃</span>
+          <span>Calibración automática por altura</span>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-emoji">🎮</span>
+          <span>2 niveles: Fácil y Difícil</span>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-emoji">⚡</span>
+          <span>Baja latencia con hilo dedicado</span>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-emoji">🎚</span>
+          <span>5 presets de sensibilidad en vivo</span>
+        </div>
+        <div class="highlight-item">
+          <span class="highlight-emoji">🦴</span>
+          <span>Detección con nariz + hombros</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <hr>
+
+  <!-- ── AI AGENTS ── -->
+  <div class="section-block">
+    <p class="section-heading">AI Agents</p>
+    <div class="agent-list">
+      <div class="agent-item fade-up">
+        <div class="agent-left">
+          <span class="agent-dot" style="background:#f97316;"></span>
+          <div><div class="agent-name">Claude Code</div><div class="agent-desc">Anthropic — primary coding agent</div></div>
+        </div>
+        <span class="agent-status">active</span>
+      </div>
+      <div class="agent-item fade-up">
+        <div class="agent-left">
+          <span class="agent-dot" style="background:#10b981;"></span>
+          <div><div class="agent-name">OpenClaw</div><div class="agent-desc">OpenAI — code review & generation</div></div>
+        </div>
+        <span class="agent-status">active</span>
+      </div>
+      <div class="agent-item fade-up">
+        <div class="agent-left">
+          <span class="agent-dot" style="background:#6366f1;"></span>
+          <div><div class="agent-name">Codex</div><div class="agent-desc">OpenAI — code completion</div></div>
+        </div>
+        <span class="agent-status">active</span>
+      </div>
+      <div class="agent-item fade-up">
+        <div class="agent-left">
+          <span class="agent-dot" style="background:#3b82f6;"></span>
+          <div><div class="agent-name">Kimi Code</div><div class="agent-desc">Moonshot AI — long context tasks</div></div>
+        </div>
+        <span class="agent-status">active</span>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ── TECH STACK ── -->
+  <div class="section-block">
+    <p class="section-heading">Tech Stack</p>
+    <div class="tech-grid">
+      <span class="tech-pill">TypeScript</span>
+      <span class="tech-pill">JavaScript</span>
+      <span class="tech-pill">Go</span>
+      <span class="tech-pill">Python</span>
+      <span class="tech-pill">PHP</span>
+      <span class="tech-pill">Dart</span>
+      <span class="tech-pill">Next.js</span>
+      <span class="tech-pill">React</span>
+      <span class="tech-pill">Flutter</span>
+      <span class="tech-pill">Expo</span>
+      <span class="tech-pill">NestJS</span>
+      <span class="tech-pill">Laravel</span>
+      <span class="tech-pill">Node.js</span>
+      <span class="tech-pill">Bun</span>
+      <span class="tech-pill">PostgreSQL</span>
+      <span class="tech-pill">MySQL</span>
+      <span class="tech-pill">Redis</span>
+      <span class="tech-pill">SQL Server</span>
+      <span class="tech-pill">Linux Debian</span>
+      <span class="tech-pill">Windows Server</span>
+      <span class="tech-pill">Git</span>
+      <span class="tech-pill">Postman</span>
+      <span class="tech-pill">VS Code</span>
+      <span class="tech-pill">OBS Studio</span>
+    </div>
+  </div>
+
+  <hr>
+
+  <footer class="footer">
+    <p>© 2026 Jefferson Vargas ·
+      <a href="https://github.com/iovargasjeff/iovargasjeff.github.io" target="_blank">source</a>
+      · Built with GitHub Pages
+    </p>
+  </footer>
+
+</main>
+
+<script>
+  // Intersection Observer for scroll-triggered sections
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section-block').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
