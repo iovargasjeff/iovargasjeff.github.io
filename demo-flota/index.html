@@ -80,6 +80,16 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
  .profile-hero{padding:22px}.profile-actions{padding:18px;flex-direction:column}.profile-actions .btn{width:100%}
 }
 @media(max-width:360px){.kpi{padding:13px 10px}.kpi-val{font-size:18px}.mobile-nav .mobile-nav-item{font-size:9.3px}}
+
+@media(max-width:750px){
+ .grid.kpis[style]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .grid.kpis[style]>.kpi:last-child:nth-child(odd){grid-column:1/-1}
+ .grid.kpis[style]>.kpi:last-child:nth-child(odd) .kpi-val{font-size:24px}
+ .vehicle-row{padding:15px 14px}
+ .alert-item{gap:9px}
+ .alert-item .goto{font-size:12px}
+ .search-wrap input{font-size:14px}
+}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
