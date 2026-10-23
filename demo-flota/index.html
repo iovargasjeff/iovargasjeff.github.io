@@ -41,6 +41,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .login-card input{width:100%;height:47px;border:1px solid #d8e2ed;border-radius:9px;padding:10px 12px;font-size:15px;background:#fafdff}
 .login-submit{width:100%;font-size:15px;min-height:48px;margin-top:22px}
 .login-card .login-disclaimer{font-size:12px;text-align:center;line-height:1.5;margin:18px 0 0;color:#718197}
+.sidebar{margin:14px 0 14px 14px;height:calc(100vh - 28px);top:14px;border-radius:20px;border:1px solid #2b3f5c;box-shadow:0 18px 45px rgba(10,25,49,.16)}
 .sidebar-profile{margin-top:auto;display:flex;align-items:center;gap:10px;background:#1b2e4a;border:1px solid #344a67;width:100%;padding:10px;border-radius:11px;color:white;text-align:left}
 .sidebar-profile:hover{background:#24405f}
 .user-avatar{width:35px;height:35px;display:grid;place-items:center;border-radius:10px;background:#3574d6;color:white;font-size:12px;font-weight:850}
@@ -55,15 +56,13 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
 .profile-actions{display:flex;gap:10px;flex-wrap:wrap;padding:20px}
 @media(max-width:750px){
  .app{display:block}.sidebar{display:none}
- .mobile-top{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;background:var(--navy);color:white;padding:11px 16px;box-shadow:0 3px 15px rgba(12,23,45,.18)}
- .mobile-top-brand{display:flex;align-items:center;gap:10px}.mobile-top-brand strong{display:block;font-size:17px;line-height:1.2}.mobile-top-brand small{font-size:11px;color:#a6bfdf}
+ .mobile-top{display:none!important}
  .small-brandmark{width:36px;height:36px;font-size:13px;border-radius:10px}
- .mobile-profile{border:1px solid #6483a8;border-radius:50%;width:36px;height:36px;background:#316dd2;color:white;font-weight:800;font-size:11px}
- .mobile-nav{display:grid;position:fixed;bottom:0;top:auto;left:0;right:0;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;padding:9px 4px calc(10px + env(safe-area-inset-bottom));background:var(--navy);border-top:1px solid #314665;z-index:30;overflow:visible;box-shadow:0 -4px 17px rgba(10,25,49,.15)}
- .mobile-nav .mobile-nav-item{display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:4px;white-space:normal;padding:7px 2px;min-height:51px;margin:0;font-size:10px;line-height:1.1;text-align:center}
- .mobile-nav .mobile-nav-item svg{width:20px;height:20px;flex:none}.mobile-nav .mobile-nav-item.active{background:#29466d}
- .main{padding:21px 15px calc(115px + env(safe-area-inset-bottom))}
- .top{flex-direction:column;gap:14px;margin-bottom:18px}.top h1{font-size:25px}.top p{font-size:13.5px;margin-top:6px}.breadcrumb{font-size:12px}
+ .mobile-nav{display:grid;position:fixed;bottom:calc(12px + env(safe-area-inset-bottom));top:auto;left:14px;right:14px;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;padding:7px 6px;background:var(--navy);border:1px solid #314665;border-radius:20px;z-index:30;overflow:visible;box-shadow:0 14px 34px rgba(10,25,49,.3),0 2px 8px rgba(10,25,49,.16)}
+ .mobile-nav .mobile-nav-item{display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:4px;white-space:normal;padding:7px 2px;min-height:51px;margin:0;font-size:10px;line-height:1.1;text-align:center;border-radius:14px}
+ .mobile-nav .mobile-nav-item svg{width:20px;height:20px;flex:none}.mobile-nav .mobile-nav-item.active{background:#29466d;border-radius:14px;box-shadow:inset 0 0 0 1px #3a5a83}
+ .main{padding:calc(20px + env(safe-area-inset-top)) 15px calc(120px + env(safe-area-inset-bottom))}
+ .top{flex-direction:column;align-items:stretch;gap:14px;margin-bottom:18px}.top h1{font-size:25px}.top p{font-size:13.5px;margin-top:6px}.breadcrumb{font-size:12px}
  .topright{width:100%;justify-content:flex-start}.topright .chip{display:none}#headerAction{width:100%}
  .grid{gap:12px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
  .kpi{padding:14px 12px;min-height:125px}.kpi-head{font-size:12px;gap:4px;margin-bottom:14px}.kpi-ic{width:27px;height:27px;flex-shrink:0}
@@ -89,6 +88,80 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid 
  .alert-item{gap:9px}
  .alert-item .goto{font-size:12px}
  .search-wrap input{font-size:14px}
+}
+/* Polish pass */
+html{scroll-behavior:smooth}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;background:var(--page)}
+::selection{background:#cfe0ff;color:#10233f}
+button,a{-webkit-tap-highlight-color:transparent}
+.main{padding-top:30px}
+.top{margin-bottom:22px}
+.breadcrumb{color:#7c8ca0;letter-spacing:.2px}
+.section-title{margin:28px 0 12px}.section-title h2{font-size:18px;letter-spacing:-.4px}
+.card{border-radius:16px;border-color:#e6edf5;box-shadow:0 1px 2px rgba(18,42,72,.04),0 12px 30px rgba(18,42,72,.045)}
+.layout-main,.vehicles-layout{align-items:start}
+.card-head h2{letter-spacing:-.25px}
+.kpi{padding:20px 21px 18px}
+.kpi-val{font-size:28px}
+.kpi-ic{border-radius:10px}
+.kpi.tone-green .kpi-ic{background:var(--tealp);color:var(--teal)}
+.kpi.tone-amber .kpi-ic{background:var(--amberp);color:var(--amber)}
+.kpi.tone-blue .kpi-ic{background:var(--bluep);color:var(--blue)}
+.kpi.tone-red .kpi-ic{background:var(--redp);color:var(--red)}
+.btn{border-radius:10px;padding:9px 15px}
+.btn-primary{background:linear-gradient(180deg,#2a6ad4,#2259b5);box-shadow:0 2px 6px rgba(35,92,196,.22)}
+.btn-primary:hover{box-shadow:0 7px 18px rgba(35,92,196,.24)}
+.filters>select.field{width:auto;min-width:220px}
+.filter-right select.field{width:auto;min-width:170px}
+.focus-strip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-bottom:16px;color:#5e7187;box-shadow:0 1px 2px rgba(18,42,72,.03)}
+.focus-strip svg{color:var(--blue);flex:0 0 auto}
+.callout{border-radius:12px}
+.data-table th{background:#f7fafd;color:#74879d;letter-spacing:.55px}
+.data-table td{padding:13px 16px;vertical-align:middle}
+.data-table button{font-size:12px;padding:6px 8px;border-radius:7px}
+.data-table button:hover{background:var(--bluep)}
+.alert-item{padding:14px 0}
+.alert-item .goto{background:var(--bluep);color:#2259b5;padding:7px 11px;border-radius:8px;align-self:center}
+.alert-item .goto:hover{background:#e0ebff}
+.vehicle-row{padding:15px 18px}
+.vehicle-row.selected{background:#eef5ff;box-shadow:inset 3px 0 #3374d8}
+.nav-btn{border-radius:11px;padding:11px 13px;margin-bottom:5px}
+.nav-btn.active{background:linear-gradient(90deg,#2c4d78,#29466d);box-shadow:inset 0 0 0 1px #3b5c87}
+.nav-btn.active svg{color:#9cc4ff}
+.sidebar-profile,.user-avatar{border-radius:12px}
+.chip{box-shadow:0 1px 2px rgba(18,42,72,.03)}
+.modal-backdrop{z-index:100;background:rgba(15,28,48,.5);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.modal{border-radius:18px}
+.toast{z-index:200;border-radius:12px}
+@media(max-width:750px){
+ .main{padding:18px 15px calc(126px + env(safe-area-inset-bottom))}
+ .top{gap:12px;margin-bottom:16px}
+ .top h1{font-size:26px;letter-spacing:-.8px}
+ .top p{font-size:13px;line-height:1.5}
+ .breadcrumb{font-size:11px;text-transform:uppercase;letter-spacing:.7px;font-weight:800;color:#8497ac}
+ .topright{gap:8px}
+ .filters{justify-content:flex-start!important}
+ .filters>select.field,.filter-right select.field{width:100%!important;min-width:0}
+ .focus-strip{padding:11px 13px;font-size:12.5px;line-height:1.5;align-items:flex-start}
+ .focus-strip svg{margin-top:2px}
+ .card{border-radius:14px}
+ .card-head{padding:16px 16px 10px}
+ .card-head h2{font-size:16px}.card-head p{font-size:12px}
+ .kpi{padding:15px 13px;min-height:118px;border-radius:14px}
+ .kpi-val{font-size:clamp(17px,4.7vw,22px)}
+ .kpi-note{font-size:10.5px;line-height:1.35}
+ .section-title{margin:22px 0 10px}.section-title h2{font-size:17px}
+ .data-table td,.data-table th{padding:11px 12px}
+ .alert-item{padding:12px 0}
+ .alert-item .goto{padding:7px 11px}
+ .mobile-nav{z-index:40;background:rgba(17,30,52,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+ .mobile-nav .mobile-nav-item{font-weight:700;letter-spacing:.1px;min-height:50px}
+ .mobile-nav .mobile-nav-item.active{background:#2d4c75;box-shadow:inset 0 0 0 1px #42658f}
+ .modal-backdrop{padding:12px}
+ .modal{width:calc(100% - 20px);border-radius:18px;padding:19px 18px}
+ .toast{left:14px;right:14px;bottom:calc(96px + env(safe-area-inset-bottom));max-width:none;text-align:center;font-size:12.5px}
+ .login-card{padding:26px 22px}
+ .footer-hint{font-size:10.5px;line-height:1.5;margin-top:20px}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
@@ -152,10 +225,10 @@ const META={overview:['Resumen','Resumen general','Ingresos, gastos y mantenimie
 function render(){renderNav();const m=META[ui.page];document.getElementById('crumb').textContent=m[0];document.getElementById('pageTitle').textContent=m[1];document.getElementById('pageDesc').textContent=m[2];document.getElementById('headerAction').style.display=ui.page==='overview'?'inline-flex':'none';document.getElementById('headerAction').innerHTML=icon('plus')+' Nuevo movimiento';document.getElementById('headerAction').onclick=()=>openModal('movement');const view={overview:renderOverview,vehicles:renderVehicles,maintenance:renderMaintenance,finance:renderFinance,profile:renderProfile}[ui.page];document.getElementById('view').innerHTML=view();animateDashboard()}
 function renderOverview(){const totals=sums(), alerts=allAlerts();const sorted=[...db.vehicles].sort((a,b)=>sums(b.plate).net-sums(a.plate).net);const max=Math.max(1,...db.vehicles.map(v=>sums(v.plate).inc));return `<div class="focus-strip">${icon('clock')} <span>Período seleccionado: ${ui.period==='week'?'19–25 de octubre 2026':ui.period==='all'?'Todos los registros':'Octubre 2026'} · Las ganancias son <b>ingresos menos gastos registrados</b>, no utilidad contable final.</span></div>
 <div class="grid kpis">
-${kpi('Ingresos registrados',money(totals.inc),'Total del período','wallet')}
-${kpi('Gastos registrados',money(totals.exp),'Total del período','chart')}
-${kpi('Resultado neto',money(totals.net),'Ingresos − gastos', 'price',totals.net>=0?'text-green':'text-red')}
-${kpi('Mantenimientos en alerta',String(alerts.length),'Vencidos o próximos','alert','text-amber')}
+${kpi('Ingresos registrados',money(totals.inc),'Total del período','wallet','','green')}
+${kpi('Gastos registrados',money(totals.exp),'Total del período','chart','','amber')}
+${kpi('Resultado neto',money(totals.net),'Ingresos − gastos', 'price',totals.net>=0?'text-green':'text-red','blue')}
+${kpi('Mantenimientos en alerta',String(alerts.length),'Vencidos o próximos','alert','text-amber','red')}
 </div>
 <div class="filters" style="justify-content:flex-end">${periodSelector()}</div>
 <div class="grid layout-main">
@@ -213,14 +286,14 @@ function animateDashboard(){
  });
 }
 
-function kpi(name,value,note,ic,cl=''){return `<div class="card kpi"><div class="kpi-head"><span>${name}</span><span class="kpi-ic">${icon(ic)}</span></div><div class="kpi-val ${cl}">${value}</div><div class="kpi-note">${note}</div></div>`}
+function kpi(name,value,note,ic,cl='',tone=''){return `<div class="card kpi ${tone?'tone-'+tone:''}"><div class="kpi-head"><span>${name}</span><span class="kpi-ic">${icon(ic)}</span></div><div class="kpi-val ${cl}">${value}</div><div class="kpi-note">${note}</div></div>`}
 function showVehicle(plate){ui.selectedPlate=plate;ui.search='';ui.page='vehicles';render();window.scrollTo({top:0,behavior:'smooth'})}
 function searchChange(x){ui.search=x;const list=db.vehicles.filter(v=>(v.plate+' '+v.model+' '+v.driver).toUpperCase().includes(x.trim().toUpperCase()));if(list.length&&!list.some(v=>v.plate===ui.selectedPlate))ui.selectedPlate=list[0].plate;document.getElementById('vehicleList').innerHTML=vehicleRows(list);document.getElementById('vehicleDetail').innerHTML=vehicleDetail()}
 function vehicleRows(list){return list.length?list.map(v=>{const st=status(v);return `<div class="vehicle-row ${ui.selectedPlate===v.plate?'selected':''}" onclick="ui.selectedPlate='${escape(v.plate)}';render()"><div class="vehicle-mini">${icon('truck')}</div><div class="vehicle-copy"><strong>${escape(v.plate)}</strong><div>${escape(v.model)} · ${num(v.mileage)} km</div></div>${badge(st.kind,st.label)}</div>`}).join(''):'<div class="empty">No se encontró ninguna placa.</div>'}
 function renderVehicles(){const list=db.vehicles.filter(v=>(v.plate+' '+v.model+' '+v.driver).toUpperCase().includes(ui.search.trim().toUpperCase()));return `<div class="callout"><strong>Consulta rápida por placa:</strong> ingresa la placa que le indique el conductor, revisa cuándo se cambiaron las llantas o cuándo se realizó el último mantenimiento, y observa el kilometraje registrado.</div><div class="filters"><div class="search-wrap">${icon('search')}<input class="field" id="vSearch" placeholder="Buscar por placa, unidad o conductor..." value="${escape(ui.search)}" oninput="searchChange(this.value)"></div><button class="btn btn-ghost" onclick="openModal('vehicle')">${icon('plus')} Añadir vehículo</button></div><div class="vehicles-layout"><div class="card" style="overflow:hidden"><div class="card-head"><div><h2>Unidades registradas</h2><p>${db.vehicles.length} vehículos registrados</p></div></div><div id="vehicleList">${vehicleRows(list)}</div></div><div class="card" id="vehicleDetail">${vehicleDetail()}</div></div>`}
 function vehicleDetail(){const v=db.vehicles.find(x=>x.plate===ui.selectedPlate);if(!v)return '<div class="empty">Selecciona un vehículo para ver su información.</div>';const st=status(v),s=sums(v.plate),tire=lastService(v.plate,'Cambio de llantas');const hist=db.services.filter(x=>x.plate===v.plate).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,4);return `<div class="detail"><div class="detail-top"><div><span class="labelcap">Ficha de vehículo</span><h2>${escape(v.plate)}</h2><div class="sub">${escape(v.model)} · ${escape(v.driver)}</div></div>${badge(st.kind,st.label)}</div><div class="detail-tiles"><div class="detail-tile"><small>Kilometraje registrado</small><strong>${num(v.mileage)} km</strong></div><div class="detail-tile"><small>Resultado del período</small><strong class="${s.net>=0?'text-green':'text-red'}">${money(s.net)}</strong></div></div><div class="info-block"><h3>Próximo mantenimiento</h3><div class="kv"><span>Último servicio general</span><strong>${st.last?fmtDate(st.last.date):'Sin registro'}</strong></div><div class="kv"><span>Kilometraje del último servicio</span><strong>${st.last?num(st.last.mileage)+' km':'—'}</strong></div><div class="kv"><span>Frecuencia estimada</span><strong>Cada ${num(v.interval)} km</strong></div><div class="kv"><span>Próximo a los</span><strong>${st.next?num(st.next)+' km':'—'}</strong></div><div class="kv"><span>Alerta</span><strong class="${st.kind==='red'?'text-red':st.kind==='amber'?'text-amber':''}">${st.remaining===null?'Sin dato':st.msg}</strong></div></div><div class="info-block"><h3>Control de llantas</h3><div class="kv"><span>Último cambio registrado</span><strong>${tire?fmtDate(tire.date):'Sin registro'}</strong></div><div class="kv"><span>Kilometraje de instalación</span><strong>${tire?num(tire.mileage)+' km':'—'}</strong></div><div class="kv"><span>Kilómetros recorridos desde el cambio</span><strong>${tire?num(Math.max(0,v.mileage-tire.mileage))+' km':'—'}</strong></div><div style="font-size:10px;color:#95a2b2;margin-top:8px">Los kilómetros recorridos no certifican por sí solos el estado físico de las llantas.</div></div><div class="info-block"><h3>Últimos servicios</h3>${hist.length?hist.map(x=>`<div class="line-item"><div><strong>${escape(x.type)}</strong><small>${fmtDate(x.date)} · ${num(x.mileage)} km</small></div></div>`).join(''):'<div class="empty">Sin servicios registrados.</div>'}</div><div class="detail-acts"><button class="btn btn-primary btn-sm" onclick="openModal('km','${escape(v.plate)}')">Actualizar km</button><button class="btn btn-ghost btn-sm" onclick="openModal('service','${escape(v.plate)}')">Registrar servicio</button><button class="btn btn-ghost btn-sm" onclick="openModal('movement','${escape(v.plate)}')">Registrar monto</button></div></div>`}
-function renderMaintenance(){const sorted=[...db.services].sort((a,b)=>b.date.localeCompare(a.date));const alerts=allAlerts();return `<div class="grid kpis" style="grid-template-columns:repeat(3,minmax(0,1fr))">${kpi('Servicios registrados',String(db.services.length),'Historial de todas las unidades','wrench')}${kpi('Alertas próximas',String(alerts.filter(x=>x.st.kind==='amber').length),'Faltan hasta 1,000 km','clock','text-amber')}${kpi('Servicios vencidos',String(alerts.filter(x=>x.st.kind==='red').length),'Superaron el kilometraje indicado','alert','text-red')}</div><div class="callout"><strong>Control por kilometraje:</strong> el mantenimiento general se programa cada 9,000 km desde el último servicio registrado; la alerta aparece cuando faltan 1,000 km o menos. El kilometraje actual es manual y debe mantenerse actualizado.</div><div class="section-title"><h2>Historial de servicios</h2><button class="btn btn-primary btn-sm" onclick="openModal('service')">${icon('plus')} Registrar mantenimiento</button></div><div class="card"><div class="table-wrap"><table class="data-table"><thead><tr><th>Fecha</th><th>Placa</th><th>Servicio</th><th>Kilometraje</th><th>Costo registrado</th><th>Nota</th></tr></thead><tbody>${sorted.length?sorted.map(x=>`<tr><td>${fmtDate(x.date)}</td><td><button onclick="showVehicle('${escape(x.plate)}')">${escape(x.plate)}</button></td><td><strong>${escape(x.type)}</strong></td><td>${num(x.mileage)} km</td><td>${money(x.cost)}</td><td style="max-width:210px;white-space:normal">${escape(x.note||'—')}</td></tr>`).join(''):`<tr><td colspan="6" class="empty">No existen mantenimientos registrados.</td></tr>`}</tbody></table></div></div><div class="note-info">Cuando registras un servicio con costo, se crea automáticamente un gasto asociado al vehículo para evitar contabilizarlo dos veces.</div>`}
-function renderFinance(){const totals=sums(),items=[...filteredFin()].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);const profits=[...db.vehicles].map(v=>({...v,...sums(v.plate)})).sort((a,b)=>b.net-a.net);return `<div class="grid kpis" style="grid-template-columns:repeat(3,minmax(0,1fr))">${kpi('Ingresos',money(totals.inc),'Movimientos del período','wallet')}${kpi('Gastos',money(totals.exp),'Movimientos del período','chart')}${kpi('Saldo neto registrado',money(totals.net),'No incluye costos no anotados','price',totals.net>=0?'text-green':'text-red')}</div><div class="filters"><div class="filter-right">${periodSelector()}<select class="field" onchange="ui.finType=this.value;render()"><option value="all" ${ui.finType==='all'?'selected':''}>Todos los movimientos</option><option value="income" ${ui.finType==='income'?'selected':''}>Solo ingresos</option><option value="expense" ${ui.finType==='expense'?'selected':''}>Solo gastos</option></select></div><button class="btn btn-primary" onclick="openModal('movement')">${icon('plus')} Registrar ingreso / gasto</button></div><div class="grid layout-main"><div class="card"><div class="card-head"><div><h2>Movimientos de caja</h2><p>Registro asociado a cada placa</p></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Fecha</th><th>Placa</th><th>Detalle</th><th>Tipo</th><th>Monto</th></tr></thead><tbody>${items.length?items.map(x=>`<tr><td>${fmtDate(x.date)}</td><td><button onclick="showVehicle('${escape(x.plate)}')">${escape(x.plate)}</button></td><td>${escape(x.concept)}</td><td>${badge(x.type==='income'?'green':'red',x.type==='income'?'Ingreso':'Gasto')}</td><td><strong class="${x.type==='income'?'text-green':'text-red'}">${x.type==='income'?'+':'−'} ${money(x.amount)}</strong></td></tr>`).join(''):'<tr><td colspan="5" class="empty">No hay movimientos para este filtro.</td></tr>'}</tbody></table></div></div><div class="card"><div class="card-head"><div><h2>Rentabilidad por vehículo</h2><p>Ordenado por saldo neto registrado</p></div></div><div class="card-content">${profits.map((v,i)=>`<div class="line-item"><div><strong><span style="color:#90a0b0;margin-right:6px">${i+1}.</span>${escape(v.plate)}</strong><small>Ingresos ${money(v.inc)} · Gastos ${money(v.exp)}</small></div><div class="amount ${v.net<0?'text-red':'text-green'}">${money(v.net)}</div></div>`).join('')}<div class="note-info">Aquí “rentabilidad” significa ingresos menos gastos cargados. No considera depreciación, tributos ni otros costos hasta que se registren.</div></div></div></div>`}
+function renderMaintenance(){const sorted=[...db.services].sort((a,b)=>b.date.localeCompare(a.date));const alerts=allAlerts();return `<div class="grid kpis" style="grid-template-columns:repeat(3,minmax(0,1fr))">${kpi('Servicios registrados',String(db.services.length),'Historial de todas las unidades','wrench','','blue')}${kpi('Alertas próximas',String(alerts.filter(x=>x.st.kind==='amber').length),'Faltan hasta 1,000 km','clock','text-amber','amber')}${kpi('Servicios vencidos',String(alerts.filter(x=>x.st.kind==='red').length),'Superaron el kilometraje indicado','alert','text-red','red')}</div><div class="callout"><strong>Control por kilometraje:</strong> el mantenimiento general se programa cada 9,000 km desde el último servicio registrado; la alerta aparece cuando faltan 1,000 km o menos. El kilometraje actual es manual y debe mantenerse actualizado.</div><div class="section-title"><h2>Historial de servicios</h2><button class="btn btn-primary btn-sm" onclick="openModal('service')">${icon('plus')} Registrar mantenimiento</button></div><div class="card"><div class="table-wrap"><table class="data-table"><thead><tr><th>Fecha</th><th>Placa</th><th>Servicio</th><th>Kilometraje</th><th>Costo registrado</th><th>Nota</th></tr></thead><tbody>${sorted.length?sorted.map(x=>`<tr><td>${fmtDate(x.date)}</td><td><button onclick="showVehicle('${escape(x.plate)}')">${escape(x.plate)}</button></td><td><strong>${escape(x.type)}</strong></td><td>${num(x.mileage)} km</td><td>${money(x.cost)}</td><td style="max-width:210px;white-space:normal">${escape(x.note||'—')}</td></tr>`).join(''):`<tr><td colspan="6" class="empty">No existen mantenimientos registrados.</td></tr>`}</tbody></table></div></div><div class="note-info">Cuando registras un servicio con costo, se crea automáticamente un gasto asociado al vehículo para evitar contabilizarlo dos veces.</div>`}
+function renderFinance(){const totals=sums(),items=[...filteredFin()].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);const profits=[...db.vehicles].map(v=>({...v,...sums(v.plate)})).sort((a,b)=>b.net-a.net);return `<div class="grid kpis" style="grid-template-columns:repeat(3,minmax(0,1fr))">${kpi('Ingresos',money(totals.inc),'Movimientos del período','wallet','','green')}${kpi('Gastos',money(totals.exp),'Movimientos del período','chart','','amber')}${kpi('Saldo neto registrado',money(totals.net),'No incluye costos no anotados','price',totals.net>=0?'text-green':'text-red','blue')}</div><div class="filters"><div class="filter-right">${periodSelector()}<select class="field" onchange="ui.finType=this.value;render()"><option value="all" ${ui.finType==='all'?'selected':''}>Todos los movimientos</option><option value="income" ${ui.finType==='income'?'selected':''}>Solo ingresos</option><option value="expense" ${ui.finType==='expense'?'selected':''}>Solo gastos</option></select></div><button class="btn btn-primary" onclick="openModal('movement')">${icon('plus')} Registrar ingreso / gasto</button></div><div class="grid layout-main"><div class="card"><div class="card-head"><div><h2>Movimientos de caja</h2><p>Registro asociado a cada placa</p></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Fecha</th><th>Placa</th><th>Detalle</th><th>Tipo</th><th>Monto</th></tr></thead><tbody>${items.length?items.map(x=>`<tr><td>${fmtDate(x.date)}</td><td><button onclick="showVehicle('${escape(x.plate)}')">${escape(x.plate)}</button></td><td>${escape(x.concept)}</td><td>${badge(x.type==='income'?'green':'red',x.type==='income'?'Ingreso':'Gasto')}</td><td><strong class="${x.type==='income'?'text-green':'text-red'}">${x.type==='income'?'+':'−'} ${money(x.amount)}</strong></td></tr>`).join(''):'<tr><td colspan="5" class="empty">No hay movimientos para este filtro.</td></tr>'}</tbody></table></div></div><div class="card"><div class="card-head"><div><h2>Rentabilidad por vehículo</h2><p>Ordenado por saldo neto registrado</p></div></div><div class="card-content">${profits.map((v,i)=>`<div class="line-item"><div><strong><span style="color:#90a0b0;margin-right:6px">${i+1}.</span>${escape(v.plate)}</strong><small>Ingresos ${money(v.inc)} · Gastos ${money(v.exp)}</small></div><div class="amount ${v.net<0?'text-red':'text-green'}">${money(v.net)}</div></div>`).join('')}<div class="note-info">Aquí “rentabilidad” significa ingresos menos gastos cargados. No considera depreciación, tributos ni otros costos hasta que se registren.</div></div></div></div>`}
 function optionPlates(p){return db.vehicles.map(v=>`<option value="${escape(v.plate)}" ${p===v.plate?'selected':''}>${escape(v.plate)} — ${escape(v.model)}</option>`).join('')}
 function inputField(label,name,type='text',value='',props='',wide=false){return `<div class="form-field ${wide?'span':''}"><label for="f_${name}">${label}</label><input class="field" id="f_${name}" name="${name}" type="${type}" value="${escape(value)}" ${props} required></div>`}
 function selectField(label,name,options,wide=false){return `<div class="form-field ${wide?'span':''}"><label for="f_${name}">${label}</label><select class="field" id="f_${name}" name="${name}" required>${options}</select></div>`}
